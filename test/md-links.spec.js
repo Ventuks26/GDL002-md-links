@@ -1,4 +1,11 @@
 const index = require("../index.js");
+const readFile = require('../links.js');
+
+describe("pathInserted is a function", () => {
+  it('pathInserted', () => {
+    expect(typeof index.pathInserted).toBe("function");
+  });
+});
 
 describe("pathInserted", () => {
   it("Should return false", () => {
@@ -6,6 +13,12 @@ describe("pathInserted", () => {
   });
   it("Should return true", () => {
     expect(index.pathInserted("./README.md")).toBe(true);
+  });
+});
+
+describe("pathWorking is a function", () => {
+  it("pathWorking", () => {
+    expect(typeof index.pathWorking).toBe("function");
   });
 });
 
@@ -18,15 +31,11 @@ describe("pathWorking", () => {
   });
 });
 
-// describe ('pathIsAbsolute', () => {
-//   it('should be true if user enter a path absolute', () => {
-//     expect(mdLinks.pathIsAbsolute("/home/laboratoria173/Laboratoria/GDL002-md-links/README.md"))
-//       .toBe(true);
-//   })
-//   it('should be false if user enter a NOT path absolute', () => {
-//     expect(mdLinks.pathIsAbsolute("Laboratoria/GDL002-md-links/README.md")).toBe(false);
-//   })
-// })
+describe("pathDirectory is a function", () => {
+  it("pathDirectory", () => {
+    expect(typeof index.pathDirectory).toBe("function");
+  });
+});
 
 describe("pathDirectory", () => {
   it("Should be true", () => {
@@ -34,6 +43,12 @@ describe("pathDirectory", () => {
   });
   it("Should be false", () => {
     expect(index.pathDirectory("./README.md")).toBe(false);
+  });
+});
+
+describe("pathMd is a function", () => {
+  it("pathMd", () => {
+    expect(typeof index.pathMd).toBe("function");
   });
 });
 
@@ -46,12 +61,10 @@ describe("pathMd", () => {
   });
 });
 
-describe("redingFile", () => {
-  it("Should read the file", () => {
-    expect(index.readingFile("./prueba.md")).toBe(true);
+test('should be read contend of file with a asyncronous function', () => {
+  readFile('./prueba.md', null).then((result) => {
+    expect(result).equality('Content of file');
   });
 });
-
-
 
 

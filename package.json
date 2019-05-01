@@ -9,13 +9,14 @@
   "directories": {
     "test": "test"
   },
-  "dependencies": {},
+  "dependencies": {
+    "markdown-it": "^8.4.2"
+  },
   "scripts": {
-"eslint": "eslint --ext .js test/",
-   "pretest": "npm run eslint",
+    "eslint": "eslint --ext .js test/",
+    "pretest": "npm run eslint",
     "test": "jest"
   },
-  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Ventuks26/GDL002-md-links.git"
