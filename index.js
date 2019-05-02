@@ -46,17 +46,17 @@ function pathMd(pathFile) {
 };
 
 
-//Función para leer archivo asyncrona.   
-function readingFile(pathFile, options) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(pathFile, function (err, data) {
-      if (err) {
-        return reject(err);
-      }
-      resolve(data.toString());
-    });
-  });
-};
+// //Función para leer archivo asyncrona.   
+// function readingFile(pathFile, options) {
+//   return new Promise((resolve, reject) => {
+//     fs.readFile(pathFile, function (err, data) {
+//       if (err) {
+//         return reject(err);
+//       }
+//       resolve(data.toString());
+//     });
+//   });
+// };
 
 //Resultado de leer el archivo
 readingFileResult.then(
