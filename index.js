@@ -75,9 +75,9 @@ function urlify(data) {
   const mdLinkRgEx2 = /\[(.+?)\]\((.+?)\)/;
   let allLinks = data.match(mdLinkRgEx);
   let htmlLinks = [];
-  for (var x in allLinks) {
-    var grpdDta = mdLinkRgEx2.exec(allLinks[x]);
-    var grupoData = {
+  for (const x in allLinks) {
+    let grpdDta = mdLinkRgEx2.exec(allLinks[x]);
+    let grupoData = {
       href: grpdDta[2],
       text: grpdDta[1],
       file: pathFile
