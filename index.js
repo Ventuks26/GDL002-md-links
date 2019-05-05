@@ -4,6 +4,7 @@ const pathFile = process.argv[2];
 const path = require('path');
 const readingFileResult = linksMd(pathFile, null);
 const fs = require('fs');
+const request = require("request");
 
 //Función para verificar que el usuario ingresó una ruta.
 function pathInserted(pathFile) {
@@ -46,17 +47,17 @@ function pathMd(pathFile) {
 };
 
 
-// //Función para leer archivo asyncrona.   
-// function readingFile(pathFile, options) {
-//   return new Promise((resolve, reject) => {
-//     fs.readFile(pathFile, function (err, data) {
-//       if (err) {
-//         return reject(err);
-//       }
-//       resolve(data.toString());
-//     });
-//   });
-// };
+//Función para leer archivo asyncrona.   
+function readingFile(pathFile, options) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(pathFile, function (err, data) {
+      if (err) {
+        return reject(err);
+      }
+      resolve(data.toString());
+    });
+  });
+};
 
 //Resultado de leer el archivo
 readingFileResult.then(
@@ -75,7 +76,7 @@ function urlify(data) {
   const mdLinkRgEx2 = /\[(.+?)\]\((.+?)\)/;
   let allLinks = data.match(mdLinkRgEx);
   let htmlLinks = [];
-  for (const x in allLinks) {
+  for (let x in allLinks) {
     let grpdDta = mdLinkRgEx2.exec(allLinks[x]);
     let grupoData = {
       href: grpdDta[2],
@@ -90,6 +91,59 @@ function urlify(data) {
 
 };
 
+function links  (pathFile, options)  {
+  return new Promise((resolve, reject) => {
+    // Leer el archivo
+    fs.readFile(pathFile, function (err, data) {
+      if (err) {
+        return reject(err);
+      }
+      resolve(data.toString());
+    });
+  });
+};
+
+const readFileResult = links(pathFile, null);
+
+//Función para leer archivo
+readFileResult.then(
+  (data) => { // On Success
+    console.log("Links Encontrados:");
+    let htmlLinks = urlify(data);
+
+    // Válidar Links encontrados.
+
+    for (let i = 0; i < htmlLinks.length; i++) {
+
+      request(htmlLinks[i].href, (error, response, body) => {
+        if (error) {
+          console.log(htmlLinks[i].href + " Página no encontrada");
+          htmlLinks[i].pathExist = false;
+        }
+        else {
+
+          const statusCode = response.statusCode;
+          // const contentType = res.headers['content-type'];
+
+          if (statusCode === 200) {
+            console.log(htmlLinks[i].href + " Página válida");
+            htmlLinks[i].pathExist = true;
+          }
+          else {
+            console.log(" Página inválida");
+          }
+        }
+
+      });
+    }
+
+
+
+  },
+  (err) => { // On Error
+    console.error(err);
+  }
+);
 
 module.exports = {
   pathInserted,
@@ -97,4 +151,7 @@ module.exports = {
   pathDirectory,
   pathMd,
   readingFile,
+  readFileResult,
+  urlify,
+  links,
 }

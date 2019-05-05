@@ -63,7 +63,13 @@ describe("pathMd", () => {
 
 test('should be read contend of file with a asyncronous function', () => {
   readFile('./prueba.md', null).then((result) => {
-    expect(result).equality('Content of file');
+    expect(result).toEqual('Content of file');
+  });
+});
+
+describe("links is a function", () => {
+  it("links", () => {
+    expect(typeof index.links).toBe("function");
   });
 });
 
